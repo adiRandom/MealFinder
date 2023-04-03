@@ -9,23 +9,26 @@
 /* Begin PBXBuildFile section */
 		0A6F491B29DB0BB7008D80D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F491A29DB0BB7008D80D6 /* AppDelegate.swift */; };
 		0A6F491D29DB0BB7008D80D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F491C29DB0BB7008D80D6 /* SceneDelegate.swift */; };
-		0A6F491F29DB0BB7008D80D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F491E29DB0BB7008D80D6 /* ViewController.swift */; };
+		0A6F491F29DB0BB7008D80D6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F491E29DB0BB7008D80D6 /* MainViewController.swift */; };
 		0A6F492229DB0BB7008D80D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A6F492029DB0BB7008D80D6 /* Main.storyboard */; };
 		0A6F492529DB0BB7008D80D6 /* MealFinder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F492329DB0BB7008D80D6 /* MealFinder.xcdatamodeld */; };
 		0A6F492729DB0BB8008D80D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A6F492629DB0BB8008D80D6 /* Assets.xcassets */; };
 		0A6F492A29DB0BB8008D80D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A6F492829DB0BB8008D80D6 /* LaunchScreen.storyboard */; };
+		0A6F493229DB0EF5008D80D6 /* MealDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F493129DB0EF5008D80D6 /* MealDto.swift */; };
+		0A6F493529DB0F78008D80D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0A6F493429DB0F78008D80D6 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A6F491729DB0BB7008D80D6 /* MealFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MealFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A6F491A29DB0BB7008D80D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A6F491C29DB0BB7008D80D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0A6F491E29DB0BB7008D80D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0A6F491E29DB0BB7008D80D6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0A6F492129DB0BB7008D80D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0A6F492429DB0BB7008D80D6 /* MealFinder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MealFinder.xcdatamodel; sourceTree = "<group>"; };
 		0A6F492629DB0BB8008D80D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A6F492929DB0BB8008D80D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A6F492B29DB0BB8008D80D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A6F493129DB0EF5008D80D6 /* MealDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A6F493529DB0F78008D80D6 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +64,13 @@
 			children = (
 				0A6F491A29DB0BB7008D80D6 /* AppDelegate.swift */,
 				0A6F491C29DB0BB7008D80D6 /* SceneDelegate.swift */,
-				0A6F491E29DB0BB7008D80D6 /* ViewController.swift */,
+				0A6F491E29DB0BB7008D80D6 /* MainViewController.swift */,
 				0A6F492029DB0BB7008D80D6 /* Main.storyboard */,
 				0A6F492629DB0BB8008D80D6 /* Assets.xcassets */,
 				0A6F492829DB0BB8008D80D6 /* LaunchScreen.storyboard */,
 				0A6F492B29DB0BB8008D80D6 /* Info.plist */,
 				0A6F492329DB0BB7008D80D6 /* MealFinder.xcdatamodeld */,
+				0A6F493129DB0EF5008D80D6 /* MealDto.swift */,
 			);
 			path = MealFinder;
 			sourceTree = "<group>";
@@ -86,6 +91,9 @@
 			dependencies = (
 			);
 			name = MealFinder;
+			packageProductDependencies = (
+				0A6F493429DB0F78008D80D6 /* Kingfisher */,
+			);
 			productName = MealFinder;
 			productReference = 0A6F491729DB0BB7008D80D6 /* MealFinder.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +122,9 @@
 				Base,
 			);
 			mainGroup = 0A6F490E29DB0BB7008D80D6;
+			packageReferences = (
+				0A6F493329DB0F78008D80D6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 0A6F491829DB0BB7008D80D6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -141,7 +152,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A6F491F29DB0BB7008D80D6 /* ViewController.swift in Sources */,
+				0A6F491F29DB0BB7008D80D6 /* MainViewController.swift in Sources */,
+				0A6F493229DB0EF5008D80D6 /* MealDto.swift in Sources */,
 				0A6F491B29DB0BB7008D80D6 /* AppDelegate.swift in Sources */,
 				0A6F492529DB0BB7008D80D6 /* MealFinder.xcdatamodeld in Sources */,
 				0A6F491D29DB0BB7008D80D6 /* SceneDelegate.swift in Sources */,
@@ -360,6 +372,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0A6F493329DB0F78008D80D6 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0A6F493429DB0F78008D80D6 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A6F493329DB0F78008D80D6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		0A6F492329DB0BB7008D80D6 /* MealFinder.xcdatamodeld */ = {
