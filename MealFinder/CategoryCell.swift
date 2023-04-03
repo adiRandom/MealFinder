@@ -14,7 +14,7 @@ class CategoryCell: UICollectionViewCell {
 	private let categoryButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.translatesAutoresizingMaskIntoConstraints = false
-		button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+		button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
 		button.setTitleColor(.white, for: .normal)
 		button.layer.cornerRadius = 8
 		button.clipsToBounds = true
@@ -43,7 +43,7 @@ class CategoryCell: UICollectionViewCell {
 		categoryButton.setTitle(category.name.uppercased(), for: .normal)
 			
 		if let imageUrl = URL(string: category.image) {
-			let processor = BlurImageProcessor(blurRadius: 10)
+			let processor = BlurImageProcessor(blurRadius: 4)
 			let resource = ImageResource(downloadURL: imageUrl, cacheKey: category.image)
 			categoryButton.kf.setBackgroundImage(with: resource, for: .normal, options: [.processor(processor)])
 		}

@@ -58,6 +58,7 @@ class MainViewController: UIViewController {
 		setupViews()
 		setupConstraints()
 		fetchRandomMeal()
+		fetchCategories()
 	}
 		
 	private func setupViews() {
