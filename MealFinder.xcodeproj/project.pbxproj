@@ -16,6 +16,9 @@
 		0A6F492A29DB0BB8008D80D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A6F492829DB0BB8008D80D6 /* LaunchScreen.storyboard */; };
 		0A6F493229DB0EF5008D80D6 /* MealDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F493129DB0EF5008D80D6 /* MealDto.swift */; };
 		0A6F493529DB0F78008D80D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0A6F493429DB0F78008D80D6 /* Kingfisher */; };
+		0A6F493729DB14D6008D80D6 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F493629DB14D6008D80D6 /* CategoryCell.swift */; };
+		0A6F493929DB157B008D80D6 /* CategoryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F493829DB157B008D80D6 /* CategoryDto.swift */; };
+		0A6F493B29DB1A6F008D80D6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F493A29DB1A6F008D80D6 /* Models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 		0A6F492929DB0BB8008D80D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A6F492B29DB0BB8008D80D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A6F493129DB0EF5008D80D6 /* MealDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDto.swift; sourceTree = "<group>"; };
+		0A6F493629DB14D6008D80D6 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		0A6F493829DB157B008D80D6 /* CategoryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDto.swift; sourceTree = "<group>"; };
+		0A6F493A29DB1A6F008D80D6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +70,7 @@
 			children = (
 				0A6F491A29DB0BB7008D80D6 /* AppDelegate.swift */,
 				0A6F491C29DB0BB7008D80D6 /* SceneDelegate.swift */,
+				0A6F493629DB14D6008D80D6 /* CategoryCell.swift */,
 				0A6F491E29DB0BB7008D80D6 /* MainViewController.swift */,
 				0A6F492029DB0BB7008D80D6 /* Main.storyboard */,
 				0A6F492629DB0BB8008D80D6 /* Assets.xcassets */,
@@ -71,6 +78,8 @@
 				0A6F492B29DB0BB8008D80D6 /* Info.plist */,
 				0A6F492329DB0BB7008D80D6 /* MealFinder.xcdatamodeld */,
 				0A6F493129DB0EF5008D80D6 /* MealDto.swift */,
+				0A6F493829DB157B008D80D6 /* CategoryDto.swift */,
+				0A6F493A29DB1A6F008D80D6 /* Models.swift */,
 			);
 			path = MealFinder;
 			sourceTree = "<group>";
@@ -155,8 +164,11 @@
 				0A6F491F29DB0BB7008D80D6 /* MainViewController.swift in Sources */,
 				0A6F493229DB0EF5008D80D6 /* MealDto.swift in Sources */,
 				0A6F491B29DB0BB7008D80D6 /* AppDelegate.swift in Sources */,
+				0A6F493B29DB1A6F008D80D6 /* Models.swift in Sources */,
+				0A6F493929DB157B008D80D6 /* CategoryDto.swift in Sources */,
 				0A6F492529DB0BB7008D80D6 /* MealFinder.xcdatamodeld in Sources */,
 				0A6F491D29DB0BB7008D80D6 /* SceneDelegate.swift in Sources */,
+				0A6F493729DB14D6008D80D6 /* CategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

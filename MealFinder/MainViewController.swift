@@ -41,6 +41,18 @@ class MainViewController: UIViewController {
 		return label
 	}()
 	
+	private let categoriesCollectionView: UICollectionView = {
+		let layout = UICollectionViewFlowLayout()
+		layout.minimumLineSpacing = 8
+		layout.minimumInteritemSpacing = 8
+		layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+		collectionView.translatesAutoresizingMaskIntoConstraints = false
+		collectionView.backgroundColor = .clear
+		return collectionView
+	}()
+	
+	private var categories: [CategoryModel] = []
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupViews()
@@ -57,8 +69,14 @@ class MainViewController: UIViewController {
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(randomMealTapped))
 		randomMealImageView.addGestureRecognizer(tapGestureRecognizer)
 		searchBar.delegate = self
-	}
 		
+		// Load the categories
+		view.addSubview(categoriesCollectionView)
+		categoriesCollectionView.dataSource = self
+		categoriesCollectionView.delegate = self
+		categoriesCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.CELL_IDENTIFIER)
+	}
+	
 	private func setupConstraints() {
 		NSLayoutConstraint.activate([
 			searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -75,6 +93,11 @@ class MainViewController: UIViewController {
 															   
 			mealNameLabel.topAnchor.constraint(equalTo: randomMealImageView.bottomAnchor, constant: 5),
 			mealNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			
+			categoriesCollectionView.topAnchor.constraint(equalTo: mealNameLabel.bottomAnchor, constant: 10),
+			categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			categoriesCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
 		])
 	}
 													   
@@ -121,6 +144,33 @@ class MainViewController: UIViewController {
 		task.resume()
 	}
 	
+	private func fetchCategories() {
+		let urlString = "https://www.themealdb.com/api/json/v1/1/categories.php"
+		
+		guard let url = URL(string: urlString) else {
+			print("Invalid URL")
+			return
+		}
+		
+		let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+			guard let data = data, error == nil else {
+				print("Error fetching data")
+				return
+			}
+			
+			do {
+				let categoriesResponse = try JSONDecoder().decode(CategoriesResponse.self, from: data)
+				DispatchQueue.main.async {
+					self?.categories = categoriesResponse.categories.map { dto in dto.toModel() }
+					self?.categoriesCollectionView.reloadData()
+				}
+			} catch {
+				print("Error decoding JSON: \(error)")
+			}
+		}
+		
+		task.resume()
+	}
 }
 
 extension MainViewController: UISearchBarDelegate {
@@ -133,4 +183,28 @@ extension MainViewController: UISearchBarDelegate {
 	}
 }
 
+extension MainViewController: UICollectionViewDataSource {
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return categories.count
+	}
 	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.CELL_IDENTIFIER, for: indexPath) as? CategoryCell ?? CategoryCell()
+
+		let category = categories[indexPath.item]
+		cell.configure(with: category)
+		return cell
+	}
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		let PADDING_SPACE:Double = 8 * (3 + 1) // 3 columns with 8 points of padding in between and on the sides
+		let ITEM_HEIGHT:Double = 64
+		
+		let availableWidth = collectionView.bounds.width - CGFloat(PADDING_SPACE)
+		let widthPerItem = availableWidth / 3
+	
+		return CGSize(width: widthPerItem, height: ITEM_HEIGHT)
+	}
+}
