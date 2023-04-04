@@ -11,26 +11,39 @@ import UIKit
 
 class CategoryCell: UICollectionViewCell {
 	static let CELL_IDENTIFIER = "CategoryCell"
-	private let categoryButton: UIButton = {
-		let button = UIButton(type: .system)
+	private let categoryImage: UIImageView = {
+		let button = UIImageView()
 		button.translatesAutoresizingMaskIntoConstraints = false
-		button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-		button.setTitleColor(.white, for: .normal)
 		button.layer.cornerRadius = 8
 		button.clipsToBounds = true
 		return button
 	}()
+	
+	private let categoryLabel: UILabel = {
+			let label = UILabel()
+			label.translatesAutoresizingMaskIntoConstraints = false
+			label.textAlignment = .center
+			label.textColor = .black
+			label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+			return label
+		}()
 	   
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		   
-		contentView.addSubview(categoryButton)
+		contentView.addSubview(categoryImage)
+		contentView.addSubview(categoryLabel)
 		   
 		NSLayoutConstraint.activate([
-			categoryButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-			categoryButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-			categoryButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-			categoryButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+			categoryImage.topAnchor.constraint(equalTo: contentView.topAnchor),
+			categoryImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			categoryImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			categoryImage.heightAnchor.constraint(equalToConstant: 64),
+			
+			categoryLabel.topAnchor.constraint(equalTo: categoryImage.bottomAnchor, constant: 4),
+			categoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			categoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			categoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
 		])
 	}
 	   
@@ -40,12 +53,11 @@ class CategoryCell: UICollectionViewCell {
 	}
 		
 	func configure(with category: CategoryModel) {
-		categoryButton.setTitle(category.name.uppercased(), for: .normal)
-			
+		categoryLabel.text = category.name.uppercased()
+
 		if let imageUrl = URL(string: category.image) {
-			let processor = BlurImageProcessor(blurRadius: 4)
 			let resource = ImageResource(downloadURL: imageUrl, cacheKey: category.image)
-			categoryButton.kf.setBackgroundImage(with: resource, for: .normal, options: [.processor(processor)])
+			categoryImage.kf.setImage(with: resource)
 		}
 	}
 }

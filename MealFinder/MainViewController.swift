@@ -201,11 +201,18 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let PADDING_SPACE:Double = 8 * (3 + 1) // 3 columns with 8 points of padding in between and on the sides
-		let ITEM_HEIGHT:Double = 64
+		let ITEM_HEIGHT:Double = 80
 		
 		let availableWidth = collectionView.bounds.width - CGFloat(PADDING_SPACE)
 		let widthPerItem = availableWidth / 3
 	
 		return CGSize(width: widthPerItem, height: ITEM_HEIGHT)
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let selectedCategory = categories[indexPath.item]
+		let categoryVC = CategoryViewController()
+		categoryVC.category = selectedCategory
+		navigationController?.pushViewController(categoryVC, animated: true)
 	}
 }

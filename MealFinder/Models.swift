@@ -13,3 +13,9 @@ struct CategoryModel{
 	let name: String
 	let image: String
 }
+
+
+struct MealModel: Decodable {
+	let name: String
+	let image: String
+}

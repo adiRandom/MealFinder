@@ -19,6 +19,8 @@
 		0A6F493729DB14D6008D80D6 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F493629DB14D6008D80D6 /* CategoryCell.swift */; };
 		0A6F493929DB157B008D80D6 /* CategoryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F493829DB157B008D80D6 /* CategoryDto.swift */; };
 		0A6F493B29DB1A6F008D80D6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F493A29DB1A6F008D80D6 /* Models.swift */; };
+		0AC6E38229DC88B0007E5CC1 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6E38129DC88B0007E5CC1 /* CategoryViewController.swift */; };
+		0AC6E38429DC89CC007E5CC1 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC6E38329DC89CC007E5CC1 /* RecipeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		0A6F493629DB14D6008D80D6 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		0A6F493829DB157B008D80D6 /* CategoryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDto.swift; sourceTree = "<group>"; };
 		0A6F493A29DB1A6F008D80D6 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		0AC6E38129DC88B0007E5CC1 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		0AC6E38329DC89CC007E5CC1 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +80,11 @@
 				0A6F492629DB0BB8008D80D6 /* Assets.xcassets */,
 				0A6F492829DB0BB8008D80D6 /* LaunchScreen.storyboard */,
 				0A6F492B29DB0BB8008D80D6 /* Info.plist */,
+				0AC6E38329DC89CC007E5CC1 /* RecipeCell.swift */,
 				0A6F492329DB0BB7008D80D6 /* MealFinder.xcdatamodeld */,
 				0A6F493129DB0EF5008D80D6 /* MealDto.swift */,
 				0A6F493829DB157B008D80D6 /* CategoryDto.swift */,
+				0AC6E38129DC88B0007E5CC1 /* CategoryViewController.swift */,
 				0A6F493A29DB1A6F008D80D6 /* Models.swift */,
 			);
 			path = MealFinder;
@@ -166,8 +172,10 @@
 				0A6F491B29DB0BB7008D80D6 /* AppDelegate.swift in Sources */,
 				0A6F493B29DB1A6F008D80D6 /* Models.swift in Sources */,
 				0A6F493929DB157B008D80D6 /* CategoryDto.swift in Sources */,
+				0AC6E38429DC89CC007E5CC1 /* RecipeCell.swift in Sources */,
 				0A6F492529DB0BB7008D80D6 /* MealFinder.xcdatamodeld in Sources */,
 				0A6F491D29DB0BB7008D80D6 /* SceneDelegate.swift in Sources */,
+				0AC6E38229DC88B0007E5CC1 /* CategoryViewController.swift in Sources */,
 				0A6F493729DB14D6008D80D6 /* CategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
