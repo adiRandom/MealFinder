@@ -9,6 +9,10 @@ import Kingfisher
 import UIKit
 
 class MainViewController: UIViewController {
+	
+	private var randomMeal: MealModel?
+	
+	
 	private let searchBar: UISearchBar = {
 		let searchBar = UISearchBar()
 		searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -103,7 +107,10 @@ class MainViewController: UIViewController {
 	}
 													   
 	@objc private func randomMealTapped() {
-		// Handle meal image tap event
+		guard let meal = randomMeal else { return }
+		let recipeVC = RecipeViewController()
+		recipeVC.mealId = meal.id
+		navigationController?.pushViewController(recipeVC, animated: true)
 	}
 	
 	private func loadImage(from url: URL) {
@@ -134,6 +141,7 @@ class MainViewController: UIViewController {
 			
 			do {
 				let mealResponse = try JSONDecoder().decode(MealResponse.self, from: data)
+				self?.randomMeal = mealResponse.meals[0].toModel()
 				DispatchQueue.main.async {
 					self?.updateUI(with: mealResponse.meals[0])
 				}
@@ -200,8 +208,8 @@ extension MainViewController: UICollectionViewDataSource {
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let PADDING_SPACE:Double = 8 * (3 + 1) // 3 columns with 8 points of padding in between and on the sides
-		let ITEM_HEIGHT:Double = 80
+		let PADDING_SPACE: Double = 8 * (3 + 1) // 3 columns with 8 points of padding in between and on the sides
+		let ITEM_HEIGHT: Double = 80
 		
 		let availableWidth = collectionView.bounds.width - CGFloat(PADDING_SPACE)
 		let widthPerItem = availableWidth / 3

@@ -12,10 +12,11 @@ struct MealResponse: Decodable {
 }
 
 struct MealDto: Decodable {
+	let idMeal: String
 	let strMeal: String
 	let strMealThumb: String
 	
 	func toModel()->MealModel{
-		return MealModel(name: strMeal, image: strMealThumb)
+		return MealModel(name: strMeal, image: strMealThumb, id: idMeal)
 	}
 }

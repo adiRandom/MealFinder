@@ -7,15 +7,27 @@
 
 import Foundation
 
-
-struct CategoryModel{
+struct CategoryModel {
 	let id: String
 	let name: String
 	let image: String
 }
 
-
 struct MealModel: Decodable {
 	let name: String
 	let image: String
+	let id: String
+}
+
+struct Ingredient: Codable {
+	let name: String
+	let measure: String
+}
+
+struct RecipeModel{
+	let id: String
+	let name: String
+	let image: String
+	let instructions: String
+	let ingredients: [Ingredient]
 }

@@ -22,7 +22,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="980.91603053435108" y="-34.507042253521128"/>
+            <point key="canvasLocation" x="1033" y="-35"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="B18-Gm-f74">
@@ -45,7 +45,7 @@
         <!--Category View Controller-->
         <scene sceneID="YIm-GM-5PU">
             <objects>
-                <viewController id="Qqt-3s-tHV" customClass="CategoryViewController" customModule="MealFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CategoryView" id="Qqt-3s-tHV" customClass="CategoryViewController" customModule="MealFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L8A-kC-bh2" customClass="CategoryView">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,7 +55,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uol-1D-wKE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-242" y="-711"/>
+            <point key="canvasLocation" x="1737" y="-35"/>
+        </scene>
+        <!--Recipe View Controller-->
+        <scene sceneID="ie4-4w-s0y">
+            <objects>
+                <viewController storyboardIdentifier="RecipeView" id="Vcb-Ez-kd3" customClass="RecipeViewController" customModule="MealFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b8T-dk-3iT">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Ifj-SS-Mff"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="64K-Tp-edn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1230" y="730"/>
         </scene>
     </scenes>
     <resources>

@@ -118,4 +118,12 @@ extension CategoryViewController: UICollectionViewDelegateFlowLayout {
 	
 		return CGSize(width: widthPerItem, height: ITEM_HEIGHT)
 	}
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let selectedRecipe = recipes[indexPath.item]
+		let recipeVC = RecipeViewController()
+		recipeVC.mealId = selectedRecipe.id
+		navigationController?.pushViewController(recipeVC, animated: true)
+	}
 }
+
