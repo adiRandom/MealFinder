@@ -85,7 +85,7 @@ class CategoryViewController: UIViewController {
 			do {
 				let mealsResponse = try JSONDecoder().decode(MealResponse.self, from: data)
 				DispatchQueue.main.async {
-					self?.recipes = mealsResponse.meals.map{dto in dto.toModel()}
+					self?.recipes = mealsResponse.meals?.map{dto in dto.toModel()} ?? []
 					self?.recipesCollectionView.reloadData()
 				}
 			} catch {

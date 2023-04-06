@@ -9,9 +9,7 @@ import Kingfisher
 import UIKit
 
 class MainViewController: UIViewController {
-	
 	private var randomMeal: MealModel?
-	
 	
 	private let searchBar: UISearchBar = {
 		let searchBar = UISearchBar()
@@ -117,11 +115,13 @@ class MainViewController: UIViewController {
 		randomMealImageView.kf.setImage(with: url)
 	}
 	
-	private func updateUI(with meal: MealDto) {
-		mealNameLabel.text = meal.strMeal
-		
-		if let imageUrl = URL(string: meal.strMealThumb) {
-			loadImage(from: imageUrl)
+	private func updateUI() {
+		if let randomMeal {
+			mealNameLabel.text = randomMeal.name
+			
+			if let imageUrl = URL(string: randomMeal.image) {
+				loadImage(from: imageUrl)
+			}
 		}
 	}
 
@@ -141,10 +141,11 @@ class MainViewController: UIViewController {
 			
 			do {
 				let mealResponse = try JSONDecoder().decode(MealResponse.self, from: data)
-				self?.randomMeal = mealResponse.meals[0].toModel()
+				self?.randomMeal = mealResponse.meals?[0].toModel()
 				DispatchQueue.main.async {
-					self?.updateUI(with: mealResponse.meals[0])
+					self?.updateUI()
 				}
+				
 			} catch {
 				print("Error decoding JSON: \(error)")
 			}
@@ -184,11 +185,52 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-		guard let text = searchBar.text, !text.isEmpty else {
+		searchBar.resignFirstResponder()
+		
+		guard let searchText = searchBar.text, !searchText.isEmpty else {
 			return
 		}
 		
-		searchBar.resignFirstResponder()
+		let urlString = "https://www.themealdb.com/api/json/v1/1/search.php?s=\(searchText)"
+		guard let url = URL(string: urlString) else {
+			return
+		}
+		
+		URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+			guard let self = self else { return }
+			
+			if let error = error {
+				print("Error fetching data: \(error)")
+				return
+			}
+			
+			guard let data = data else {
+				print("Data is missing or corrupted.")
+				return
+			}
+			
+			do {
+				let decoder = JSONDecoder()
+				let searchResult = try decoder.decode(MealResponse.self, from: data)
+				
+				if let recipe = searchResult.meals?.first {
+					DispatchQueue.main.async {
+						let recipeViewController = RecipeViewController()
+						recipeViewController.mealId = recipe.idMeal
+						self.navigationController?.pushViewController(recipeViewController, animated: true)
+					}
+				} else {
+					DispatchQueue.main.async {
+						let alertController = UIAlertController(title: "No Recipes Found", message: "There were no recipes that matched your search.", preferredStyle: .alert)
+						alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+						self.present(alertController, animated: true, completion: nil)
+					}
+				}
+				
+			} catch {
+				print("Error decoding data: \(error)")
+			}
+		}.resume()
 	}
 }
 
