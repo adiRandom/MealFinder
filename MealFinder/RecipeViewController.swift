@@ -78,15 +78,13 @@ class RecipeViewController: UIViewController {
 		view.backgroundColor = .white
 		
 		view.addSubview(scrollView)
-		view.addSubview(mealImageView)
 		
+		scrollView.addSubview(mealImageView)
 		scrollView.addSubview(mealNameLabel)
 		scrollView.addSubview(ingredientsLabel)
 		scrollView.addSubview(instructionsLabel)
 		scrollView.addSubview(ingredientsTitleLabel)
 		scrollView.addSubview(instructionsTitleLabel)
-		
-		
 
 		setupConstraints()
 		fetchRecipe()
@@ -112,18 +110,20 @@ class RecipeViewController: UIViewController {
 	
 	private func setupConstraints() {
 		NSLayoutConstraint.activate([
-			mealImageView.topAnchor.constraint(equalTo: view.topAnchor),
-			mealImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-			mealImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			mealImageView.heightAnchor.constraint(equalToConstant: 200),
-				
-			scrollView.topAnchor.constraint(equalTo: mealImageView.bottomAnchor),
+			scrollView.topAnchor.constraint(equalTo: view.topAnchor),
 			scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 			scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
 			
-			mealNameLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 8),
+			
+			mealImageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+			mealImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			mealImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			mealImageView.heightAnchor.constraint(equalToConstant: 200),
+			
+			
+			mealNameLabel.topAnchor.constraint(equalTo: mealImageView.bottomAnchor, constant: 8),
 			mealNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 			mealNameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 			
