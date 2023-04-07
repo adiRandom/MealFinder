@@ -4,6 +4,7 @@ import UIKit
 class RecipeViewController: UIViewController {
 	var mealId: String?
 	var recipe: RecipeModel?
+	var repo = MealRepository()
 	
 	private let scrollView: UIScrollView = {
 		let scrollView = UIScrollView()
@@ -70,8 +71,6 @@ class RecipeViewController: UIViewController {
 		return label
 	}()
 	
-	
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		   
@@ -87,25 +86,18 @@ class RecipeViewController: UIViewController {
 		scrollView.addSubview(instructionsTitleLabel)
 
 		setupConstraints()
-		fetchRecipe()
+		if let mealId {
+			repo.fetchRecipe(id:mealId){[weak self] recipe in
+				self?.onRecipeFetched(recipe)
+			}
+		}
 	}
 	
-	private func fetchRecipe() {
-		guard let mealId = mealId, let url = URL(string: "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(mealId)") else { return }
-		
-		URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-			guard let data = data, error == nil else { return }
-			
-			do {
-				let recipeResponse = try JSONDecoder().decode(RecipeResponse.self, from: data)
-				DispatchQueue.main.async {
-					self?.recipe = recipeResponse.meals.first?.toModel()
-					self?.setupUI()
-				}
-			} catch {
-				print("Error decoding recipe: \(error)")
-			}
-		}.resume()
+	private func onRecipeFetched(_ recipe: RecipeModel?) {
+		DispatchQueue.main.async {
+			self.recipe = recipe
+			self.setupUI()
+		}
 	}
 	
 	private func setupConstraints() {
@@ -116,12 +108,10 @@ class RecipeViewController: UIViewController {
 			scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 			scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
 			
-			
 			mealImageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
 			mealImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			mealImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			mealImageView.heightAnchor.constraint(equalToConstant: 200),
-			
 			
 			mealNameLabel.topAnchor.constraint(equalTo: mealImageView.bottomAnchor, constant: 8),
 			mealNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -131,17 +121,14 @@ class RecipeViewController: UIViewController {
 			ingredientsTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 			ingredientsTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 			
-						
 			ingredientsLabel.topAnchor.constraint(equalTo: ingredientsTitleLabel.bottomAnchor, constant: 8),
 			ingredientsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 			ingredientsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 			ingredientsLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
 			
-			
 			instructionsTitleLabel.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor, constant: 16),
 			instructionsTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 			instructionsTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-			
 			
 			instructionsLabel.topAnchor.constraint(equalTo: instructionsTitleLabel.bottomAnchor, constant: 16),
 			instructionsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),

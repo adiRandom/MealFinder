@@ -3,7 +3,8 @@ import UIKit
 
 class CategoryViewController: UIViewController {
 	var category: CategoryModel!
-
+	let repo = MealRepository()
+	
 	private let categoryImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,16 +34,18 @@ class CategoryViewController: UIViewController {
 	}()
 	
 	private var recipes: [MealModel] = []
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .white
 		title = ""
 		setupViews()
 		setupConstraints()
-		fetchRecipes()
+		repo.fetchMealsByCategory(category.name) { [weak self] meals in
+			self?.onRecipesFetched(meals)
+		}
 	}
-
+	
 	private func setupViews() {
 		view.addSubview(categoryImageView)
 		categoryImageView.kf.setImage(with: URL(string: category.image))
@@ -54,44 +57,32 @@ class CategoryViewController: UIViewController {
 		recipesCollectionView.delegate = self
 		recipesCollectionView.register(RecipeCell.self, forCellWithReuseIdentifier: RecipeCell.CELL_IDENIFIER)
 	}
-		  
+	
 	private func setupConstraints() {
 		NSLayoutConstraint.activate([
 			categoryImageView.topAnchor.constraint(equalTo: view.topAnchor),
 			categoryImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			categoryImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			categoryImageView.heightAnchor.constraint(equalToConstant: 200),
-				  
+			
 			categoryNameLabel.centerXAnchor.constraint(equalTo: categoryImageView.centerXAnchor),
 			categoryNameLabel.centerYAnchor.constraint(equalTo: categoryImageView.centerYAnchor),
-				  
+			
 			recipesCollectionView.topAnchor.constraint(equalTo: categoryImageView.bottomAnchor),
 			recipesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			recipesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 			recipesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		])
-			  
+		
 		categoryImageView.layer.cornerRadius = 16
 		categoryImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 	}
-		  
-	private func fetchRecipes() {
-		let urlString = "https://www.themealdb.com/api/json/v1/1/filter.php?c=\(category.name)"
-		guard let url = URL(string: urlString) else { return }
-
-		URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-			guard let data = data, error == nil else { return }
-			
-			do {
-				let mealsResponse = try JSONDecoder().decode(MealResponse.self, from: data)
-				DispatchQueue.main.async {
-					self?.recipes = mealsResponse.meals?.map{dto in dto.toModel()} ?? []
-					self?.recipesCollectionView.reloadData()
-				}
-			} catch {
-				print("Error decoding recipes: \(error)")
-			}
-		}.resume()
+	
+	private func onRecipesFetched(_ mealModels: [MealModel]) {
+		DispatchQueue.main.async {
+			self.recipes = mealModels
+			self.recipesCollectionView.reloadData()
+		}
 	}
 }
 
@@ -126,4 +117,3 @@ extension CategoryViewController: UICollectionViewDelegateFlowLayout {
 		navigationController?.pushViewController(recipeVC, animated: true)
 	}
 }
-

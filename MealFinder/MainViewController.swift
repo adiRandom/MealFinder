@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
 	private var randomMeal: MealModel?
-	
+	private let repo = MealRepository()
 	private let searchBar: UISearchBar = {
 		let searchBar = UISearchBar()
 		searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -55,12 +55,13 @@ class MainViewController: UIViewController {
 	}()
 	
 	private var categories: [CategoryModel] = []
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupViews()
 		setupConstraints()
-		fetchRandomMeal()
-		fetchCategories()
+		repo.fetchRandomMeal(){[weak self] meal in self?.onRandomMealFetched(meal)}
+		repo.fetchCategories(){[weak self] category in self?.onCategoriesFetched(category)}
 	}
 		
 	private func setupViews() {
@@ -125,61 +126,18 @@ class MainViewController: UIViewController {
 		}
 	}
 
-	private func fetchRandomMeal() {
-		let urlString = "https://www.themealdb.com/api/json/v1/1/random.php"
-		
-		guard let url = URL(string: urlString) else {
-			print("Invalid URL")
-			return
+	private func onRandomMealFetched(_ mealModel: MealModel?) {
+		randomMeal = mealModel
+		DispatchQueue.main.async {
+			self.updateUI()
 		}
-		
-		let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-			guard let data = data, error == nil else {
-				print("Error fetching data")
-				return
-			}
-			
-			do {
-				let mealResponse = try JSONDecoder().decode(MealResponse.self, from: data)
-				self?.randomMeal = mealResponse.meals?[0].toModel()
-				DispatchQueue.main.async {
-					self?.updateUI()
-				}
-				
-			} catch {
-				print("Error decoding JSON: \(error)")
-			}
-		}
-		
-		task.resume()
 	}
 	
-	private func fetchCategories() {
-		let urlString = "https://www.themealdb.com/api/json/v1/1/categories.php"
-		
-		guard let url = URL(string: urlString) else {
-			print("Invalid URL")
-			return
+	private func onCategoriesFetched(_ categoriesModels:[CategoryModel]) {
+		DispatchQueue.main.async {
+			self.categories = categoriesModels
+			self.categoriesCollectionView.reloadData()
 		}
-		
-		let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-			guard let data = data, error == nil else {
-				print("Error fetching data")
-				return
-			}
-			
-			do {
-				let categoriesResponse = try JSONDecoder().decode(CategoriesResponse.self, from: data)
-				DispatchQueue.main.async {
-					self?.categories = categoriesResponse.categories.map { dto in dto.toModel() }
-					self?.categoriesCollectionView.reloadData()
-				}
-			} catch {
-				print("Error decoding JSON: \(error)")
-			}
-		}
-		
-		task.resume()
 	}
 }
 
