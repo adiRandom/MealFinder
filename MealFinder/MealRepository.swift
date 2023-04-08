@@ -21,7 +21,7 @@ class MealRepository {
 		}
 		
 		let urlString = "\(baseURL)/categories.php"
-		fetchData(urlString: urlString) { (result: Result<CategoriesResponse, Error>) in
+		fetchData(urlString: urlString) { [weak self] (result: Result<CategoriesResponse, Error>) in
 			let categories = result.map {
 				$0.categories.map {
 					category in category.toModel()
@@ -30,7 +30,7 @@ class MealRepository {
 			
 			completion(categories)
 			categories.forEach { category in
-				self.saveCategory(category)
+				self?.saveCategory(category)
 			}
 		}
 	}
@@ -45,26 +45,36 @@ class MealRepository {
 	func searchMeal(_ searchText: String, completion: @escaping (MealModel?) -> Void) {
 		if let cachedMeal = fetchCachedMealByName(searchText) {
 			completion(cachedMeal)
+			return
 		}
 		
 		let urlString = "\(baseURL)/search.php?s=\(searchText)"
-		fetchData(urlString: urlString) { (result: Result<MealResponse, Error>) in
+		fetchData(urlString: urlString) { [weak self] (result: Result<MealResponse, Error>) in
 			let mealModelResult = result.map { $0.meals?.first?.toModel() }
 			let mealModel = mealModelResult.resolve() ?? nil
 			completion(mealModel)
 			
 			if let mealModel {
-				self.saveMeal(mealModel)
+				self?.saveMeal(mealModel)
 			}
 		}
 	}
 	
 	func fetchRecipe(id: String, completion: @escaping (RecipeModel?) -> Void) {
+		if let cachedRecipe = fetchCachedRecipe(by: id) {
+			completion(cachedRecipe)
+			return
+		}
+		
 		let urlString = "\(baseURL)/lookup.php?i=\(id)"
-		fetchData(urlString: urlString) { (result: Result<RecipeResponse, Error>) in
+		fetchData(urlString: urlString) { [weak self] (result: Result<RecipeResponse, Error>) in
 			let recipeModelResponse = result.map { $0.meals.first?.toModel() }
 			let recipeModel = recipeModelResponse.resolve() ?? nil
 			completion(recipeModel)
+			
+			if let recipeModel {
+				self?.saveRecipe(recipeModel)
+			}
 		}
 	}
 	
@@ -104,6 +114,23 @@ class MealRepository {
 		
 		CoreDataStack.shared.saveContext()
 	}
+	
+	private func saveRecipe(_ recipe: RecipeModel) {
+		let context = CoreDataStack.shared.persistentContainer.viewContext
+		let cachedRecipe = CachedRecipe(context: context)
+		cachedRecipe.id = recipe.id
+		cachedRecipe.name = recipe.name
+		cachedRecipe.imageUrl = recipe.image
+		cachedRecipe.instructions = recipe.instructions
+		do {
+			cachedRecipe.ingredients = try NSKeyedArchiver.archivedData(withRootObject: recipe.ingredients, requiringSecureCoding: false)
+		} catch {
+			print("Error saving ingredients: \(error)")
+			return
+		}
+		
+		CoreDataStack.shared.saveContext()
+	}
 
 	// Save meal
 	private func saveMeal(_ meal: MealModel) {
@@ -139,7 +166,29 @@ class MealRepository {
 		do {
 			let cachedMeals = try context.fetch(fetchRequest)
 			guard let cachedMeal = cachedMeals.first else { return nil }
-			return MealModel(name: cachedMeal.id!, image: cachedMeal.name!, id: cachedMeal.imageUrl!)
+			return MealModel(name: cachedMeal.name!, image: cachedMeal.imageUrl!, id: cachedMeal.id!)
+		} catch {
+			print("Error fetching meal from CoreData: \(error)")
+			return nil
+		}
+	}
+	
+	private func fetchCachedRecipe(by id: String) -> RecipeModel? {
+		let context = CoreDataStack.shared.persistentContainer.viewContext
+		let fetchRequest: NSFetchRequest<CachedRecipe> = CachedRecipe.fetchRequest()
+		fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+		
+		do {
+			let cachedRecipes = try context.fetch(fetchRequest)
+			guard let cachedRecipe = cachedRecipes.first else { return nil }
+			return try RecipeModel(
+				id: cachedRecipe.id!,
+				name: cachedRecipe.name!,
+				image: cachedRecipe.imageUrl!,
+				instructions: cachedRecipe.instructions!,
+				ingredients: NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: cachedRecipe.ingredients!) as? [Ingredient] ?? []
+			)
+			
 		} catch {
 			print("Error fetching meal from CoreData: \(error)")
 			return nil

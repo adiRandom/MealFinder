@@ -13,6 +13,7 @@
     <entity name="CachedRecipe" representedClassName="CachedRecipe" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
+        <attribute name="ingredients" optional="YES" attributeType="Binary"/>
         <attribute name="instructions" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
