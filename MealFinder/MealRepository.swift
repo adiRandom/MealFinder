@@ -7,7 +7,7 @@ class MealRepository {
 	func fetchRandomMeal(completion: @escaping (MealModel?) -> Void) {
 		let urlString = "\(baseURL)/random.php"
 		fetchData(urlString: urlString) { (result: Result<MealResponse, Error>) in
-			let mealModelResult = result.map { $0.meals?.first?.toModel() }
+			let mealModelResult = result.map { $0.meals?.first?.toModel(category: "") }
 			let mealModel = mealModelResult.resolve() ?? nil
 			completion(mealModel)
 		}
@@ -36,21 +36,33 @@ class MealRepository {
 	}
 	
 	func fetchMealsByCategory(_ category: String, completion: @escaping ([MealModel]) -> Void) {
+		let cachedMeals = fetchCachedMeals(by: .Category, value: category)
+		if !cachedMeals.isEmpty {
+			completion(cachedMeals)
+			return
+		}
+		
 		let urlString = "\(baseURL)/filter.php?c=\(category)"
-		fetchData(urlString: urlString) { (result: Result<MealResponse, Error>) in
-			completion(result.map { $0.meals?.map { meal in meal.toModel() } ?? [] }.resolve() ?? [])
+		fetchData(urlString: urlString) { [weak self] (result: Result<MealResponse, Error>) in
+			let mealModelsResult = result.map { $0.meals?.map {
+				meal in meal.toModel(category: category)
+			} ?? [] }
+			let mealModels = mealModelsResult.resolve() ?? []
+			completion(mealModels)
+			
+			self?.saveMeals(mealModels)
 		}
 	}
 	
 	func searchMeal(_ searchText: String, completion: @escaping (MealModel?) -> Void) {
-		if let cachedMeal = fetchCachedMealByName(searchText) {
+		if let cachedMeal = fetchCachedMeals(by: .Name, value: searchText).first {
 			completion(cachedMeal)
 			return
 		}
 		
 		let urlString = "\(baseURL)/search.php?s=\(searchText)"
-		fetchData(urlString: urlString) { [weak self] (result: Result<MealResponse, Error>) in
-			let mealModelResult = result.map { $0.meals?.first?.toModel() }
+		fetchData(urlString: urlString) { [weak self] (result: Result<RecipeResponse, Error>) in
+			let mealModelResult = result.map { $0.meals.first?.toModel().toMealModel() }
 			let mealModel = mealModelResult.resolve() ?? nil
 			completion(mealModel)
 			
@@ -139,8 +151,13 @@ class MealRepository {
 		cachedMeal.id = meal.id
 		cachedMeal.name = meal.name
 		cachedMeal.imageUrl = meal.image
+		cachedMeal.category = meal.categoryName
 		
 		CoreDataStack.shared.saveContext()
+	}
+	
+	private func saveMeals(_ meals: [MealModel]) {
+		meals.forEach(saveMeal)
 	}
 	
 	// Fetch categories
@@ -156,20 +173,27 @@ class MealRepository {
 			return []
 		}
 	}
+	
+	private enum MealField: String {
+		case Name = "name"
+		case Category = "category"
+	}
 
-	// Fetch meal by id
-	private func fetchCachedMealByName(_ name: String) -> MealModel? {
+	private func fetchCachedMeals(by field: MealField, value: String) -> [MealModel] {
 		let context = CoreDataStack.shared.persistentContainer.viewContext
 		let fetchRequest: NSFetchRequest<CachedMeal> = CachedMeal.fetchRequest()
-		fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+		fetchRequest.predicate = NSPredicate(format: "\(field.rawValue) == %@", value)
 		
 		do {
-			let cachedMeals = try context.fetch(fetchRequest)
-			guard let cachedMeal = cachedMeals.first else { return nil }
-			return MealModel(name: cachedMeal.name!, image: cachedMeal.imageUrl!, id: cachedMeal.id!)
+			return try context.fetch(fetchRequest).map { cachedMeal in MealModel(
+				name: cachedMeal.name!,
+				image: cachedMeal.imageUrl!,
+				id: cachedMeal.id!,
+				categoryName: cachedMeal.category!
+			) }
 		} catch {
 			print("Error fetching meal from CoreData: \(error)")
-			return nil
+			return []
 		}
 	}
 	
@@ -185,6 +209,7 @@ class MealRepository {
 				id: cachedRecipe.id!,
 				name: cachedRecipe.name!,
 				image: cachedRecipe.imageUrl!,
+				categoryName: cachedRecipe.categoryName!,
 				instructions: cachedRecipe.instructions!,
 				ingredients: NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: cachedRecipe.ingredients!) as? [Ingredient] ?? []
 			)

@@ -16,6 +16,7 @@ struct RecipeDto: Codable {
 	let name: String
 	let image: String
 	let instructions: String
+	let categoryName: String
 	
 	let strIngredient1: String?
 	let strIngredient2: String?
@@ -129,7 +130,7 @@ struct RecipeDto: Codable {
 	}
 	
 	func toModel()->RecipeModel {
-		return RecipeModel(id: id, name: name, image: image, instructions: instructions, ingredients: getIngredients())
+		return RecipeModel(id: id, name: name, image: image, categoryName: categoryName, instructions: instructions, ingredients: getIngredients())
 	}
 }
 
@@ -139,6 +140,7 @@ extension RecipeDto {
 		case name = "strMeal"
 		case image = "strMealThumb"
 		case instructions = "strInstructions"
+		case categoryName = "strCategory"
 		
 
 		case strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,

@@ -7,110 +7,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DBE74521-392E-49DB-BAAD-7BE5385A8969"
-            shouldBeEnabled = "No"
+            uuid = "825C7DF4-E12F-44A0-80C0-96267CBF802D"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MealFinder/MainViewController.swift"
+            filePath = "MealFinder/MealRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "53702ED7-E0F7-4AEF-A5BF-8B90693A9D38"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MealFinder/RecipeCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "configure(with:)"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "fetchMealsByCategory(_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "641D73C1-F3C1-45C4-97E4-58B8A5C05C71"
-            shouldBeEnabled = "No"
+            uuid = "7A380D24-1250-4BA4-82A2-101D5C60A07C"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MealFinder/RecipeCell.swift"
+            filePath = "MealFinder/MealRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "configure(with:)"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "fetchMealsByCategory(_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8025B45E-2452-46C4-B444-354DCCAC8DFC"
-            shouldBeEnabled = "No"
+            uuid = "3FFB586E-D7BE-4519-893D-12A464185D0A"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MealFinder/CategoryViewController.swift"
+            filePath = "MealFinder/MealRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "fetchCategories(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "538544B7-AD1E-4890-8CB0-2AD8A0A549D9"
-            shouldBeEnabled = "No"
+            uuid = "25D0BDAC-ED5A-4DA5-B588-3B5BABE849F5"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MealFinder/CategoryViewController.swift"
+            filePath = "MealFinder/MealRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E2FD318C-C179-4266-AC6F-68EC32F9A3C2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MealFinder/RecipeCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "configure(with:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7C50D646-F8F4-4CFA-9641-1943C86DD023"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MealFinder/MainViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "updateUI()"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "fetchCategories(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

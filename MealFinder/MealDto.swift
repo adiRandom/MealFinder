@@ -16,7 +16,7 @@ struct MealDto: Decodable {
 	let strMeal: String
 	let strMealThumb: String
 	
-	func toModel()->MealModel{
-		return MealModel(name: strMeal, image: strMealThumb, id: idMeal)
+	func toModel(category:String)->MealModel{
+		return MealModel(name: strMeal, image: strMealThumb, id: idMeal, categoryName: category)
 	}
 }

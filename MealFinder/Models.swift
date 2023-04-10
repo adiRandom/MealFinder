@@ -17,6 +17,7 @@ struct MealModel: Decodable {
 	let name: String
 	let image: String
 	let id: String
+	let categoryName: String
 }
 
 struct Ingredient: Codable {
@@ -28,6 +29,11 @@ struct RecipeModel{
 	let id: String
 	let name: String
 	let image: String
+	let categoryName: String
 	let instructions: String
 	let ingredients: [Ingredient]
+	
+	func toMealModel() -> MealModel{
+		return MealModel(name: name, image: image, id: id, categoryName: categoryName)
+	}
 }

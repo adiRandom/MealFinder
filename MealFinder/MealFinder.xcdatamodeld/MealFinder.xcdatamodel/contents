@@ -6,11 +6,13 @@
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <entity name="CachedMeal" representedClassName="CachedMeal" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <entity name="CachedRecipe" representedClassName="CachedRecipe" syncable="YES" codeGenerationType="class">
+        <attribute name="categoryName" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
         <attribute name="ingredients" optional="YES" attributeType="Binary"/>
