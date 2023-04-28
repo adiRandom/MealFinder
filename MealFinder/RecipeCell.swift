@@ -40,11 +40,12 @@ class RecipeCell: UICollectionViewCell {
 			recipeImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
 			recipeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
 			recipeImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-			recipeImageView.bottomAnchor.constraint(equalTo: recipeNameLabel.topAnchor),
+			recipeImageView.heightAnchor.constraint(equalToConstant: 64),
 			
+			recipeNameLabel.topAnchor.constraint(equalTo: recipeImageView.bottomAnchor, constant: 4),
 			recipeNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
 			recipeNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-			recipeNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+			recipeNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 		])
 	}
 		

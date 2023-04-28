@@ -7,65 +7,66 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "825C7DF4-E12F-44A0-80C0-96267CBF802D"
-            shouldBeEnabled = "Yes"
+            uuid = "BE6707B8-7AFF-4C57-BFA8-A5D37A1BF962"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MealFinder/MealRepository.swift"
+            filePath = "MealFinder/RecipeCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "fetchMealsByCategory(_:completion:)"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "configure(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7A380D24-1250-4BA4-82A2-101D5C60A07C"
+            uuid = "348874B3-8C93-4FB0-89D6-9F78782E814E"
             shouldBeEnabled = "Yes"
+            condition = "recipeNameLabel.text == &quot;&quot; || recipeNameLabel.text == nil"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MealFinder/MealRepository.swift"
+            filePath = "MealFinder/RecipeCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "fetchMealsByCategory(_:completion:)"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "configure(with:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3FFB586E-D7BE-4519-893D-12A464185D0A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MealFinder/MealRepository.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "fetchCategories(completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "25D0BDAC-ED5A-4DA5-B588-3B5BABE849F5"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MealFinder/MealRepository.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "fetchCategories(completion:)"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "348874B3-8C93-4FB0-89D6-9F78782E814E - e47c80e78a125690"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MealFinder.RecipeCell.configure(with: MealFinder.MealModel) -&gt; ()"
+                  moduleName = "MealFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adi_random/XCode%20Projects/MealFinder/MealFinder/RecipeCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "500">
+               </Location>
+               <Location
+                  uuid = "348874B3-8C93-4FB0-89D6-9F78782E814E - e47c80e78a125690"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MealFinder.RecipeCell.configure(with: MealFinder.MealModel) -&gt; ()"
+                  moduleName = "MealFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adi_random/XCode%20Projects/MealFinder/MealFinder/RecipeCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "364">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
